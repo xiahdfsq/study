@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
-var util = require('./common/util'),
+const util = require('./common/util'),
 	version = require('./info/version'),
-	help = require('./info/help');
+	help = require('./info/help'),
+	init = require('./tool/init'),
+	build = require('./tool/build');
 
 var agrv = util.argv(),
 	func = agrv.func;
@@ -17,5 +19,13 @@ switch (func) {
 	case "-v":
 	case "-version":
 		version.show();
+		break;
+	// 初始化工程
+	case "init":
+		init.init();
+		break;
+	// 构建工程
+	case "build":
+		build.build();
 		break;
 }

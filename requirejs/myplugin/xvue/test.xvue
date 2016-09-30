@@ -1,0 +1,7 @@
+import b from 'b'
+
+var nn = {};
+
+b.log();
+
+return nn;

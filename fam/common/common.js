@@ -153,6 +153,31 @@ function delect(fileList) {
 		});
 	}
 }
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// 删除文件
+/**
+ * @Param info String 提示信息
+ * @Param def String 默认值
+ */
+function prompt(info, def) {
+	return new Promise((resolve, reject) => {
+		var mess = info + ':';
+		!!def && (mess += ' (' + def + ')');
+
+		process.stdout.write(mess);
+		process.stdin.setEncoding('utf8');
+		process.stdin.on('data', result => {
+			result = result.slice(0, -2);
+			if (!!result) {
+				process.stdin.end();
+				resolve(result);
+			} else {
+				process.stdin.end();
+				resolve(def || '');
+			}
+		});
+	});
+}
 
 exports.delect = delect;
 exports.traversal = traversal;
@@ -162,3 +187,4 @@ exports.write = write;
 exports.pipefile = pipefile;
 exports.pipe = pipe;
 exports.read = read;
+exports.prompt = prompt;

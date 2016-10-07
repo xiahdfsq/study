@@ -4,7 +4,10 @@ define(['text'], function (text) {
 	var xvue = {};
 
 	var Deps_reg = /import\s+(\w+)\s+from\s+(\'?|\"?)([\w,\.,\/]*)(\'?|\"?)/g,
-		scriptStr;
+		Script_reg = /<script>([\s\S]*)<\/script>/,
+		Template_reg = /<template>([\s\S]*)<\/template>/,
+		export_reg = /export\s+(default\s*)?{/,
+		scriptStr, tempStr;
 
 	// 获取依赖
 	/**
@@ -13,8 +16,10 @@ define(['text'], function (text) {
 	function getDeps() {
 		var res = scriptStr.match(Deps_reg),
 			temp,
-			Deps_name_list = '(',
-			Deps_path_list = '[';
+			Deps_name_list = '(Vue',
+			Deps_path_list = "['Vue'";
+
+		// import
 		if (!!res) {
 			res.forEach(function (item) {
 				// 去除依赖内容
@@ -32,12 +37,24 @@ define(['text'], function (text) {
 			Deps_name_list += ')';
 		}
 
-		scriptStr = "define(" + Deps_path_list + ", function " + Deps_name_list + " {'use strict';\r" + scriptStr + "\r\n});";
+		// export
+		scriptStr = scriptStr.replace(export_reg, 'return Vue.extend({\r\ntemplate: "<div>{{ msg }}<\div>",');
+
+		scriptStr = "define(" + Deps_path_list + ", function " + Deps_name_list + " {'use strict';\r" + scriptStr + ");\r\n});";
+	}
+
+	// 分离模板与脚本
+	/**
+	 * @Param xvueTmp xvue模板
+	 */
+	function divide(xvueTmp) {
+		scriptStr = xvueTmp.match(Script_reg)[1];
+		tempStr = xvueTmp.match(Template_reg)[1];
 	}
 
 	xvue.load = function (name, req, onload, config) {
 		req(['text!' + name], function (value) {
-			scriptStr = value;
+			divide(value);
 			getDeps();
 			onload.fromText(scriptStr);
 		});

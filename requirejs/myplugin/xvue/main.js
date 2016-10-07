@@ -10,10 +10,16 @@ requirejs.config({
 		text: './text',
 		xvue: './xvue',
 		tt: './tt',
+		Vue: './vue'
 	}
 });
 
 // Start the main app logic.
-requirejs(['xvue!test.xvue'], function (test) {
-	console.log(test);
+requirejs(['Vue', 'xvue!test.xvue'], function (Vue, App) {
+	new Vue({
+		el: 'body',
+		components: {
+			App
+		}
+	});
 });

@@ -1,7 +1,13 @@
-import b from 'b'
+<template>
+	<div>{{ msg }}</div>
+</template>
+<script>
+	export default {
+		data: function() {
+			return {
+				msg: 'Hello World!!'
+			}
+		}
+	}
 
-var nn = {};
-
-b.log();
-
-return nn;
+</script>

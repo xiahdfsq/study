@@ -1,8 +1,8 @@
 var fs = require('fs'),
-	readline = require('readline'),
+//	readline = require('readline'),
 	stat = fs.stat,
-	ph = require('path'),
-	colors = require('colors');
+	ph = require('path');
+//	colors = require('colors');
 
 /**
  * 读取文件内容
@@ -15,7 +15,7 @@ function read(file) {
 	});
 	return data;
 }
-//-----------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------
 /**
  * 复制单个文件，管道的方式
  * @Param sourcefile 源文件
@@ -153,7 +153,7 @@ function delect(fileList) {
 		});
 	}
 }
-// ----------------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
 // 删除文件
 /**
  * @Param info String 提示信息
@@ -169,10 +169,9 @@ function prompt(info, def) {
 		process.stdin.on('data', result => {
 			result = result.slice(0, -2);
 			if (!!result) {
-				process.stdin.end();
 				resolve(result);
 			} else {
-				process.stdin.end();
+//				process.stdin.end();
 				resolve(def || '');
 			}
 		});

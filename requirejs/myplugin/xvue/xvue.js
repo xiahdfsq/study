@@ -38,8 +38,8 @@ define(['text'], function (text) {
 		}
 
 		// export
-		scriptStr = scriptStr.replace(export_reg, 'return Vue.extend({\r\ntemplate: "<div>{{ msg }}<\div>",');
-
+		scriptStr = scriptStr.replace(export_reg, 'return Vue.extend({\r\ntemplate: "' + tempStr + '",');
+		
 		scriptStr = "define(" + Deps_path_list + ", function " + Deps_name_list + " {'use strict';\r" + scriptStr + ");\r\n});";
 	}
 
@@ -49,7 +49,7 @@ define(['text'], function (text) {
 	 */
 	function divide(xvueTmp) {
 		scriptStr = xvueTmp.match(Script_reg)[1];
-		tempStr = xvueTmp.match(Template_reg)[1];
+		tempStr = xvueTmp.match(Template_reg)[1].replace(/\r\n/g, '');
 	}
 
 	xvue.load = function (name, req, onload, config) {

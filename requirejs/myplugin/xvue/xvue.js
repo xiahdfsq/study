@@ -46,14 +46,14 @@ define(['text'], function (text) {
 	 */
 	function divide(xvueTmp) {
 		scriptStr = xvueTmp.match(Script_reg)[1];
-		tempStr = xvueTmp.match(Template_reg)[1].replace(/\r\n/g, '');
+		tempStr = xvueTmp.match(Template_reg)[1].replace(/\s+/g, ' ').replace(/\'/g, "\\'").replace(/\"/g, '\\"');
 	}
 
 	xvue.load = function (name, req, onload, config) {
 		req(['text!' + name], function (value) {
 			divide(value);
 			getDeps();
-			//			console.log(scriptStr);
+			// console.log(scriptStr);
 			onload.fromText(scriptStr);
 		});
 	};

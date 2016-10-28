@@ -36,7 +36,7 @@
 				}]
 			});
 
-			console.log(JSON.stringify(data, null, 4));
+//			console.log(JSON.stringify(data, null, 4));
 
 			// Mock.mock(rurl, template)
 			Mock.mock(/hello/, {
@@ -48,12 +48,13 @@
 			});
 
 			// jQuery ajax
-			/*$.ajax({
+			$.ajax({
 				url: '/hello',
 				dataType: 'json'
 			}).done(function(data, status, jqXHR) {
-				console.log(JSON.stringify(data, null, 4));
-			});*/
+				console.log(data);
+//				console.log(JSON.stringify(data, null, 4));
+			});
 
 			// Angular ajax
 			var app = angular.module("FHTApp", ["ionic"]);

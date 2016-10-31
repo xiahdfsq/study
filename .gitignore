@@ -1,5 +1,6 @@
 others-demo/
 fam/node_modules
-vux-master
 *.zip
 mock/Mock-refactoring/
+vux-master
+flotr2/Flotr2-master

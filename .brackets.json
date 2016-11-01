@@ -3,6 +3,7 @@
         "dist",
         "bower_components",
         "node_modules",
-		"Flotr2-master.zip"
+		"Flotr2-master.zip",
+		"/.docx/"
     ]
 }

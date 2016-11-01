@@ -1,5 +1,5 @@
 others-demo/
-fam/node_modules
+node_modules
 *.zip
 mock/Mock-refactoring/
 vux-master

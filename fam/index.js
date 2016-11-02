@@ -4,7 +4,8 @@ const util = require('./common/util'),
 	version = require('./info/version'),
 	help = require('./info/help'),
 	init = require('./tool/init'),
-	build = require('./tool/build');
+	build = require('./tool/build'),
+	table = require('./tool/table');
 
 var agrv = util.argv(),
 	func = agrv.func;
@@ -28,4 +29,8 @@ switch (func) {
 	case "build":
 		build.build();
 		break;
+    // 新建表
+    case "table":
+        table.add(agrv.args);
+        break;
 }

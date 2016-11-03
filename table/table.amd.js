@@ -38,4 +38,7 @@ define([], function () {
 	table.check = function () {
 
 	};
+    
+    // 对外暴露
+    return table;
 });

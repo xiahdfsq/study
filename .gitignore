@@ -8,3 +8,4 @@ gulp/dest
 gulp/task
 gulp/src
 requirejs/amd_test/js
+test

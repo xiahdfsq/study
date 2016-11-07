@@ -5,14 +5,8 @@ requirejs.config({
 
 // Start the main app logic.
 requirejs(['extend.min'], function ($$hh) {
-    var a = {
-        a: 100,
-        b: 200
-    };
-    var b = {
-        f: 200,
-        b: undefined
-    };
+    var a = [];
+    var b = [111];
     $$hh.extend(true, a, b);
 
     console.log(a);

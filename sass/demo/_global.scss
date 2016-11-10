@@ -3,3 +3,8 @@
 /**
  * 全局样式
  */
+
+$option: (bdkr: 14px);
+.btn {
+    @include button();
+}

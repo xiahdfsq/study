@@ -253,6 +253,44 @@ hr {
 /**
  * 全局样式
  */
+.btn {
+  background-color: #1B9AF7;
+  border-color: #1B9AF7;
+  font-weight: 300;
+  border-radius: 4px;
+  color: #fff;
+  margin: 5px;
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 30px;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: .3s;
+  transition-duration: .3s;
+}
+.btn:active {
+  background-color: #2798eb;
+  border-color: #2798eb;
+  color: #0880d7;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  outline: 0;
+}
+
 /**
  * 页面1的样式
  */

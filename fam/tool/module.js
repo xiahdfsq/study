@@ -30,13 +30,19 @@
 const com = require('../common/common'),
     path = require("path");
 
-var
-    famObj = com.resolvefam(),
-    moduleDir = famObj.catalogue.module.dir,
+var famObj, moduleDir, moduleTmp;
+
+// 初始化 famObj
+function initFamObj() {
+    famObj = com.resolvefam();
+    moduleDir = famObj.catalogue.module.dir;
     moduleTmp = famObj.catalogue.module.template;
+}
 
 // 分发任务
 function distribute(args) {
+    !famObj && initFamObj();
+
     if (args[0] == "template") {
         template(args);
     } else {

@@ -58,3 +58,42 @@ a[6](); // 6
 // 注： babel上未能实现
 
 // =================================================================================================================
+
+var tmp = new Date();
+
+function f() {
+    console.log(tmp);
+    if (false) {
+        var tmp = "hello world";
+    }
+}
+
+f(); // undefined
+
+function f1() {
+    let n = 5;
+    if (true) {
+        let n = 10;
+    }
+    console.log(n);
+}
+
+f1(); // 5
+
+// =================================================================================================================
+
+var s = 'hello';
+
+for (var i = 0; i < s.length; i++) {
+    console.log(s[i]);
+}
+
+console.log(i); // 5
+
+var a = 1;
+// 如果在Node的REPL环境，可以写成global.a
+// 或者采用通用方法，写成this.a
+window.a // 1
+
+let b = 1;
+window.b // undefined

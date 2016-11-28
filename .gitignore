@@ -10,3 +10,4 @@ gulp/src
 requirejs/amd_test/js
 test
 dist
+libs/jquery-master

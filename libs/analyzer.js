@@ -164,5 +164,137 @@ define([], function () {
     };
     // ------------------------------------------------- 获取账单类型 结束-----------------------------
 
+    // ------------------------------------------------- 分析账单时间 开始-----------------------------
+
+    var dateReg = /([今昨前]天)|(星期[一二三四五六日天])|((\d+年)?(\d+月)?\d+[日号])/g,
+        today = new Date(),
+        vagueDate = {};
+
+    // 初始化模糊日期
+    (function () {
+        var weeks = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+            yesterday = new Date(today),
+            beforeday = new Date(yesterday),
+            i = 0,
+            dateTmp, dayTmp;
+
+        // 今天 昨天 前天
+        yesterday.setDate(today.getDate() - 1);
+        beforeday.setDate(yesterday.getDate() - 1);
+
+        vagueDate["今天"] = date2str(today);
+        vagueDate["昨天"] = date2str(yesterday);
+        vagueDate["前天"] = date2str(beforeday);
+
+        // 星期
+        for (; i < 7; i++) {
+            dateTmp = new Date(today);
+            dateTmp.setDate(today.getDate() - i);
+
+            dayTmp = dateTmp.getDay();
+            dayTmp = weeks[dayTmp];
+
+            vagueDate[dayTmp] = date2str(dateTmp);
+        }
+    }());
+
+    /**
+     * 日 转 年月日
+     * @Param dayStr 日期字符串 eg: 20号
+     * retuen String 日期字符串 eg: 2016年11月28日
+     */
+    function day2date(dayStr) {
+        var dayReg = /\d+[日号]/g,
+            monthReg = /\d+月/g,
+            yearReg = /\d+年/g,
+            t_year = today.getFullYear() + "年",
+            t_month = today.getMonth() + 1 + "月",
+            year = dayStr.match(yearReg) || [t_year],
+            month = dayStr.match(monthReg) || [t_month],
+            day = dayStr.match(dayReg),
+            result = year[0] + month[0] + day[0];
+        result = result.slice(0, -1) + "日";
+
+        return result;
+    }
+
+    /**
+     * 日期对象 转 日期字符串
+     * @Param date 日期对象
+     * retuen String 日期字符串 eg: 2016年11月28日
+     */
+    function date2str(date) {
+        if (typeof date !== "object") {
+            return;
+        }
+
+        var year = date.getFullYear(),
+            month = date.getMonth() + 1,
+            day = date.getDate(),
+            result = year + "年" + month + "月" + day + "日";
+
+        return result;
+    }
+
+    /**
+     * 获取账单时间
+     * @Param billStr String 账单内容字符串
+     * return Object {input, date}
+     */
+    analyzer.getDate = function (billStr) {
+
+        var result = billStr.match(dateReg) || [false],
+            input = result[0];
+
+        if (!input) {
+            return {
+                input: '',
+                date: date2str(today)
+            };
+        }
+
+        // 模糊日期
+        result = {};
+        result.input = input;
+        result.date = vagueDate[input];
+
+        // 某一天
+        if (!result.date) {
+            result.date = day2date(input);
+        }
+
+        return result;
+    };
+
+    /**
+     * 分析账单
+     * @Param billStr String 账单内容字符串
+     * return Object {date, keyWord, type, img, money}
+     */
+    analyzer.analyze = function (billStr) {
+        var billStr = billStr,
+            result = {},
+            temp;
+
+        // 时间
+        temp = this.getDate(billStr);
+        result.date = temp.date;
+        temp = null;
+
+        billStr = billStr.replace(result.input, "");
+
+        // 金额
+        result.money = this.getMoney(billStr);
+
+        // 账单信息
+        temp = this.getBillKey(billStr);
+        result.keyWord = temp.keyWord || "";
+        result.type = temp.type || "";
+        result.img = temp.img || "";
+
+        return result;
+    };
+
+
     return analyzer;
 });

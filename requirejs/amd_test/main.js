@@ -1,23 +1,14 @@
 requirejs.config({
     baseUrl: './',
     paths: {
-        analyzer: "js/analyzer",
-        selecter: "js/selecter"
+        analyzer: "js/analyzer"
     }
 });
 
 // Start the main app logic.
-requirejs(['selecter'], function ($) {
+requirejs(['analyzer'], function (analyzer) {
+    var str = "充地铁卡五十",
+        result = analyzer.analyze(str);
 
-
-
-    setInterval(function () {
-        $("#test").toggle();
-    }, 1000);
-    //    console.log($("#test"));
-
-    //    var str = "充地铁卡五十",
-    //        money = analyzer.getBillKey(str);
-    //
-    //    console.log(money);
+    console.log(result);
 });

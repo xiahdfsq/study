@@ -1,14 +1,15 @@
 requirejs.config({
     baseUrl: './',
     paths: {
-        analyzer: "js/analyzer"
+        analyzer: "js/analyzer",
+        check: "js/check"
     }
 });
 
 // Start the main app logic.
-requirejs(['analyzer'], function (analyzer) {
+requirejs(['analyzer', 'check'], function (analyzer, check) {
     var str = "充地铁卡五十",
         result = analyzer.analyze(str);
 
-    console.log(result);
+    console.log(check);
 });

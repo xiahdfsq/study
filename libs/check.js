@@ -36,10 +36,11 @@
      */
     function check_item(item, auth) {
         var reg = regList[auth] || auth;
-        if (!item || !reg.test(item)) {
-            return false;
+        if (item !== undefined && reg.test(item)) {
+            return true;
         }
-        return true;
+
+        return false;
     }
     // 公共 结束
 
@@ -77,8 +78,16 @@
                     }
                 } else if (type === "[object Array]") {
                     len = obj[label].length;
+
+                    // 数组不能为空
+                    if (!len && testObj[label][0].musthasval) {
+                        !!callback && callback(testObj[label][0].mess);
+                        flag = false;
+                        return false;
+                    }
+
                     for (i = 0; i < len; i++) {
-                        flag = check(obj[label][i], testObj[label][0]);
+                        flag = check(obj[label][i], testObj[label][0].model);
                         if (!flag) {
                             return false;
                         }
@@ -104,8 +113,6 @@
     }
 
 
-
-
     // 测试 开始
     var obj = [{
         dd: 'kk',
@@ -125,6 +132,7 @@
     var result = check(obj, testObj);
     console.log(result);
     // 测试 结束
+
 
 
     return {

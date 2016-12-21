@@ -8,8 +8,8 @@ requirejs.config({
 
 // Start the main app logic.
 requirejs(['analyzer', 'check'], function (analyzer, check) {
-    var str = "充地铁卡五十",
+    var str = "喀喀喀",
         result = analyzer.analyze(str);
 
-    console.log(check);
+    console.log(result);
 });

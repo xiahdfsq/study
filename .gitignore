@@ -11,3 +11,4 @@ requirejs/amd_test/js
 test
 dist
 libs/jquery-master
+*.7z

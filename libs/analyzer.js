@@ -82,7 +82,7 @@ define([], function () {
     analyzer.getMoney = function (anyStr) {
         var searchArr = searchMoney(anyStr),
             i = 0,
-            len = searchArr.length,
+            len = !!searchArr ? searchArr.length : 0,
             sum = 0,
             k_flag = false,
             moneyStr, cvArr;
@@ -131,11 +131,11 @@ define([], function () {
     var keyWords = [{
         keyWord: /(早餐)|(午餐)|(晚餐)/g,
         type: "餐饮食品",
-        img: ""
+        img: "food.png"
     }, {
         keyWord: /(地铁卡)/g,
         type: "行车交通",
-        img: ""
+        img: "traffic.png"
     }];
 
     /**
@@ -160,7 +160,11 @@ define([], function () {
             }
         }
 
-        return false;
+        return {
+            keyWord: "",
+            type: "其他支出",
+            img: "other.png"
+        };
     };
     // ------------------------------------------------- 获取账单类型 结束-----------------------------
 
@@ -273,7 +277,9 @@ define([], function () {
      */
     analyzer.analyze = function (billStr) {
         var billStr = billStr,
-            result = {},
+            result = {
+                mess: billStr
+            },
             temp;
 
         // 时间
@@ -288,13 +294,14 @@ define([], function () {
 
         // 账单信息
         temp = this.getBillKey(billStr);
-        result.keyWord = temp.keyWord || "";
-        result.type = temp.type || "";
-        result.img = temp.img || "";
+
+        console.log(temp);
+        result.keyWord = temp.keyWord;
+        result.type = temp.type;
+        result.img = temp.img;
 
         return result;
     };
-
 
     return analyzer;
 });

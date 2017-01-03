@@ -7,7 +7,6 @@ gulp.task('default', function () {
     return gulp
         .src('./src/*.js')
         .pipe(amdOptimize('src/jQuery', { // 根据 'src/jQuery' 来查找模块的位置
-            name: "jQuery", // 貌似没用
             configFile: "./src/jQuery.js",
             baseUrl: './src/'
         }))

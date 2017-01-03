@@ -1,7 +1,12 @@
+/**
+ * 公用函数库
+ * 待优化，优化原因: 新增遍历文件夹方法
+ */
+
 var fs = require('fs'),
-    //	readline = require('readline'),
-    stat = fs.stat,
-    ph = require('path');
+	//	readline = require('readline'),
+	stat = fs.stat,
+	ph = require('path');
 //	colors = require('colors');
 
 /**
@@ -9,11 +14,11 @@ var fs = require('fs'),
  * @Param file 文件名（包括路径）
  */
 function read(file) {
-    var data = fs.readFileSync(file, {
-        flag: 'r',
-        encoding: 'utf8'
-    });
-    return data;
+	var data = fs.readFileSync(file, {
+		flag: 'r',
+		encoding: 'utf8'
+	});
+	return data;
 }
 //------------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -22,16 +27,16 @@ function read(file) {
  * @Param targetfile 目标文件
  */
 function pipefile(sourcefile, targetfile) {
-    var rs = fs.createReadStream(sourcefile),
-        ws = fs.createWriteStream(targetfile);
-    rs.pipe(ws);
+	var rs = fs.createReadStream(sourcefile),
+		ws = fs.createWriteStream(targetfile);
+	rs.pipe(ws);
 
-    rs.on('data', function (data) {
-        console.log('正在读取文件: ' + sourcefile)
-    });
-    rs.on('end', function () {
-        console.log('文件读取完成: ' + sourcefile);
-    });
+	rs.on('data', function (data) {
+		console.log('正在读取文件: ' + sourcefile)
+	});
+	rs.on('end', function () {
+		console.log('文件读取完成: ' + sourcefile);
+	});
 }
 
 /**
@@ -41,28 +46,28 @@ function pipefile(sourcefile, targetfile) {
  */
 function pipe(source, target) {
 
-    createForlder(target);
+	createForlder(target);
 
-    fs.readdir(source, function (err, paths) {
-        if (err)
-            throw err;
+	fs.readdir(source, function (err, paths) {
+		if (err)
+			throw err;
 
-        paths.forEach(function (path) {
-            var _src = source + '/' + path,
-                _dst = target + '/' + path;
+		paths.forEach(function (path) {
+			var _src = source + '/' + path,
+				_dst = target + '/' + path;
 
-            stat(_src, function (err, st) {
-                if (err)
-                    throw err;
+			stat(_src, function (err, st) {
+				if (err)
+					throw err;
 
-                if (st.isFile()) {
-                    pipefile(_src, _dst);
-                } else if (st.isDirectory()) {
-                    pipe(_src, _dst);
-                }
-            });
-        });
-    });
+				if (st.isFile()) {
+					pipefile(_src, _dst);
+				} else if (st.isDirectory()) {
+					pipe(_src, _dst);
+				}
+			});
+		});
+	});
 }
 // -------------------------------------------------------------------------------------------------------------
 /**
@@ -71,10 +76,10 @@ function pipe(source, target) {
  * @Param content String 文件内容
  */
 function write(file, content) {
-    fs.writeFileSync(file, content, {
-        flag: 'w',
-        encoding: 'utf8'
-    });
+	fs.writeFileSync(file, content, {
+		flag: 'w',
+		encoding: 'utf8'
+	});
 }
 // -------------------------------------------------------------------------------------------------------------------
 /**
@@ -84,11 +89,11 @@ function write(file, content) {
  * @Param dir 目录路径
  */
 function createForlder(dir) {
-    var exists = fs.existsSync(dir);
+	var exists = fs.existsSync(dir);
 
-    if (!exists) {
-        fs.mkdirSync(dir);
-    }
+	if (!exists) {
+		fs.mkdirSync(dir);
+	}
 }
 // --------------------------------------------------------------------------------------------------------------------------
 /**
@@ -98,13 +103,13 @@ function createForlder(dir) {
  * @Param endfunc 文件读取完毕时的回调函数
  */
 function readLines(file, func, endfunc) {
-    var rl = readline.createInterface({
-        input: fs.createReadStream(file)
-    });
+	var rl = readline.createInterface({
+		input: fs.createReadStream(file)
+	});
 
-    rl.on('line', func);
+	rl.on('line', func);
 
-    rl.on('close', endfunc);
+	rl.on('close', endfunc);
 }
 // -------------------------------------------------------------------------------------------------------------------------
 /**
@@ -113,30 +118,30 @@ function readLines(file, func, endfunc) {
  * @Param func Function 找到html文件后的回调函数
  */
 function traversal(source, func) {
-    var fileType;
+	var fileType;
 
-    fs.readdir(source, function (err, paths) {
-        if (err)
-            throw err;
+	fs.readdir(source, function (err, paths) {
+		if (err)
+			throw err;
 
-        paths.forEach(function (path) {
-            var _src = source + '/' + path;
+		paths.forEach(function (path) {
+			var _src = source + '/' + path;
 
-            stat(_src, function (err, st) {
-                if (err)
-                    throw err;
+			stat(_src, function (err, st) {
+				if (err)
+					throw err;
 
-                if (st.isFile()) {
-                    fileType = ph.extname(_src);
-                    if (fileType == ".html") {
-                        func(_src);
-                    }
-                } else if (st.isDirectory()) {
-                    traversal(_src, func);
-                }
-            });
-        });
-    });
+				if (st.isFile()) {
+					fileType = ph.extname(_src);
+					if (fileType == ".html") {
+						func(_src);
+					}
+				} else if (st.isDirectory()) {
+					traversal(_src, func);
+				}
+			});
+		});
+	});
 }
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // 删除文件
@@ -144,14 +149,14 @@ function traversal(source, func) {
  * @Param fileList StringArray 字符串数组，要删除的文件名列表
  */
 function delect(fileList) {
-    var mess, i;
+	var mess, i;
 
-    for (i = 0; i < fileList.length; i++) {
-        fs.unlink(fileList[i], function () {
-            mess = 'The file has been deleted: ' + fileList[i];
-            console.log(mess.red);
-        });
-    }
+	for (i = 0; i < fileList.length; i++) {
+		fs.unlink(fileList[i], function () {
+			mess = 'The file has been deleted: ' + fileList[i];
+			console.log(mess.red);
+		});
+	}
 }
 // ----------------------------------------------------------------------------------------------------------------------------------
 // 删除文件
@@ -160,22 +165,22 @@ function delect(fileList) {
  * @Param def String 默认值
  */
 function prompt(info, def) {
-    return new Promise((resolve, reject) => {
-        var mess = info + ':';
-        !!def && (mess += ' (' + def + ')');
+	return new Promise((resolve, reject) => {
+		var mess = info + ':';
+		!!def && (mess += ' (' + def + ')');
 
-        process.stdout.write(mess);
-        process.stdin.setEncoding('utf8');
-        process.stdin.on('data', result => {
-            result = result.slice(0, -2);
-            if (!!result) {
-                resolve(result);
-            } else {
-                // process.stdin.end();
-                resolve(def || '');
-            }
-        });
-    });
+		process.stdout.write(mess);
+		process.stdin.setEncoding('utf8');
+		process.stdin.on('data', result => {
+			result = result.slice(0, -2);
+			if (!!result) {
+				resolve(result);
+			} else {
+				// process.stdin.end();
+				resolve(def || '');
+			}
+		});
+	});
 }
 // ----------------------------------------------------------------------------------------------------------------------------------
 // 解析 .fam 文件
@@ -183,11 +188,37 @@ function prompt(info, def) {
  * 只适用本项目
  */
 function resolvefam() {
-    var famCont = read('./.fam'),
-        famObj = JSON.parse(famCont);
-    return famObj;
+	var famCont = read('./.fam'),
+		famObj = JSON.parse(famCont);
+	return famObj;
 }
+// ----------------------------------------------------------------------------------------------------------------------------------
+/**
+ * 遍历文件夹，然后对文件夹中的文件进行操作
+ * @Param dir String 文件夹路径
+ * @Param operation Function 操作，接收一个参数 [_src] 操作文件路径
+ */
+function traverse(dir, operation) {
+	fs.readdir(dir, function (err, paths) {
+		if (err)
+			throw err;
 
+		paths.forEach(function (path) {
+			var _src = dir + '/' + path;
+
+			stat(_src, function (err, st) {
+				if (err)
+					throw err;
+
+				if (st.isFile()) {
+					operation(_src);
+				} else if (st.isDirectory()) {
+					traverse(_src, operation);
+				}
+			});
+		});
+	});
+}
 
 // ----------------------------------------------------------------------------------------------------------------------------------
 // 暴露接口
@@ -201,3 +232,4 @@ exports.pipe = pipe;
 exports.read = read;
 exports.prompt = prompt;
 exports.resolvefam = resolvefam;
+exports.traverse = traverse;

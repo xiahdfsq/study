@@ -45,17 +45,36 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./stylkke.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) // 载入 style.css
-	document.write('It works.')
-	document.write(__webpack_require__(1))
-	console.log("I had changed!!")
-	console.log("I had changed to use webpack-dev-server!!")
+	__webpack_require__(1);
+	__webpack_require__(1);
+	module.exports = __webpack_require__(2);
+
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	module.exports = 'It works from module.js.'
+	//require("./stylkke.css") // 载入 style.css
+	//document.write('It works.')
+	//document.write(require('./module.js'))
+	//console.log("I had changed!!")
+	//console.log("I had changed to use webpack-dev-server!!")
+
+	import Vue from 'Vue'
+	import Favlist from './components/Favlist'
+
+	new Vue({
+	  el: 'body',
+	  components: {
+	    Favlist
+	  }
+	})
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	
 
 /***/ }
 /******/ ]);

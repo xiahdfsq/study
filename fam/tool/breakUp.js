@@ -44,12 +44,12 @@ var html_dir = dir + "html",
   bindReg = /{{\s*(\w+)\s*}}/g,
   imgReg = /src=[\'\"]+([\w\/\.]+)[\'\"]+/g,
   megReg = /Messages\.(\w+)/g,
-  ctrl_dir = dir + "controllers";
+  ctrl_dir = dir + "test";
 
 // 取消 messages 中文简繁体转换
 function htmlchange() {
   com.traverse(ctrl_dir, function (path) {
-    /*var fileCnt = com.read(path),
+    var fileCnt = com.read(path),
       arr, item, name, replace;
 
     while ((arr = bindReg.exec(fileCnt)) != null) {
@@ -59,7 +59,7 @@ function htmlchange() {
       if (replace = message.Messages[name]) {
         fileCnt = fileCnt.replace(item, replace);
       }
-    }*/
+    }
 
     /*var fileCnt = com.read(path),
       arr, oldsrc, newsrc, item, newitem;
@@ -72,7 +72,7 @@ function htmlchange() {
       fileCnt = fileCnt.replace(item, newitem);
     }*/
 
-    var fileCnt = com.read(path),
+    /*var fileCnt = com.read(path),
       arr, name, replace, item;
 
     while ((arr = megReg.exec(fileCnt)) != null) {
@@ -80,7 +80,7 @@ function htmlchange() {
       name = arr[1];
       replace = '"' + message.Messages[name] + '".tran()';
       fileCnt = fileCnt.replace(item, replace);
-    }
+    }*/
 
     com.write(path, fileCnt);
   });

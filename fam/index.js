@@ -8,7 +8,8 @@ var
 	build = require('./tool/build'),
 	table = require('./tool/table'),
 	module = require('./tool/module'),
-	breakUp = require('./tool/breakUp'); // pad 移植用
+	breakUp = require('./tool/breakUp'), // pad 移植用
+	mintool = require('./tool/mintool');
 
 var agrv = util.argv(),
 	func = agrv.func;
@@ -43,4 +44,7 @@ case "module":
 case "breakup":
 	breakUp.breakUp();
 	break;
+  case "mintool":
+    mintool.mintool();
+    break;
 }

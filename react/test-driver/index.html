@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <script src="react-0.14.0.js"></script>
+  <script src="react-dom-0.14.0.js"></script>
+  <script src="browser.min.js"></script>
+  <title>React 测试驱动</title>
+</head>
+
+<body>
+  <div id="example"></div>
+  <script type="text/babel">
+    var FancyCheckbox = React.createClass({
+      render: function() {
+        var { checked, ...other } = this.props;
+        var fancyClass = checked ? 'FancyChecked' : 'FancyUnchecked';
+        // `other` 包含 { onClick: console.log } 但 checked 属性除外
+        return (
+          <div {...other} className={fancyClass} />
+        );
+      }
+    });
+    ReactDOM.render(
+      <FancyCheckbox checked={true} style={true} onClick={console.log.bind(console)}>
+        Hello world!
+      </FancyCheckbox>,
+      document.getElementById('example')
+    );
+  </script>
+</body>
+
+</html>

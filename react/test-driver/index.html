@@ -14,20 +14,29 @@
 <body>
   <div id="example"></div>
   <script type="text/babel">
-    var FancyCheckbox = React.createClass({
+    var MyComponent = React.createClass({
+      handleClick: function() {
+        // Explicitly focus the text input using the raw DOM API.
+        this.refs.myTextInput.focus();
+      },
       render: function() {
-        var { checked, ...other } = this.props;
-        var fancyClass = checked ? 'FancyChecked' : 'FancyUnchecked';
-        // `other` 包含 { onClick: console.log } 但 checked 属性除外
+        // The ref attribute adds a reference to the component to
+        // this.refs when the component is mounted.
         return (
-          <div {...other} className={fancyClass} />
+          <div>
+            <input type="text" ref="myTextInput" />
+            <input
+              type="button"
+              value="Focus the text input"
+              onClick={this.handleClick}
+            />
+          </div>
         );
       }
     });
+
     ReactDOM.render(
-      <FancyCheckbox checked={true} style={true} onClick={console.log.bind(console)}>
-        Hello world!
-      </FancyCheckbox>,
+      <MyComponent />,
       document.getElementById('example')
     );
   </script>

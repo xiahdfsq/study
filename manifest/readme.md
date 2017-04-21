@@ -21,7 +21,7 @@
 在需要使用缓存的页面的 ```<html>``` 标签中插入 manifest="xx.xxx" 即可，如
 
 ```
-<html lang="en" manifest="m.manifest">
+<html lang="en" manifest="qiantu.manifest">
 ```
 
 

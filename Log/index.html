@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <title>测试驱动</title>
-  <script src="log.es5.js"></script>
   <style>
     html,
     body {
@@ -13,6 +12,7 @@
       width: 100%;
     }
   </style>
+  <script src="log.es5.js"></script>
 </head>
 
 <body>
@@ -44,58 +44,10 @@
   <div>测试</div>
   <div>测试</div>
   <div>测试</div>
-
-  <div id="logger">
-    <!--<div style="padding: 10px;background: #fff;position: absolute;width: 90%;top: 34%;z-index:999;">
-      <div style="text-align: center;padding: 5px;line-height: 2em;border-bottom: 1px solid #ccc;position: relative;">
-        <div>日志系统</div>
-        <div style="position: absolute;right: 10px;top: 5px;color: #999;">关闭</div>
-      </div>
-      <div style="padding: 5px;">
-        <div style="display: flex;">
-          <span>Server</span>
-          <div style="flex: 1;padding: 0 10px;">
-            <input type="text" style="width: 95%;" />
-          </div>
-          <a style="width: 80px;text-align: center;background: #44f;border-radius: 3px;color: #fff;">Inspect</a>
-        </div>
-      </div>
-    </div>-->
-  </div>
-
-  <script>
-    var logger = new Reporter({
-      devMod: true
-    })
-
-    try {
-      let a = b;
-    } catch (err) {
-      logger.send(err)
-    }
-
-    //5.2
-    var baz = 3;
-    var bazz = {
-      baz: 2,
-      getbaz: function () {
-        return this.baz
-      }
-    }
-    console.log(bazz.getbaz())
-    var g = bazz.getbaz;
-    console.log(g());
-
-    //5.3
-    var arr = [1, 2, 3, 4, 5];
-    for (var i = 0; i < arr.length; i++) {
-      arr[i] = function () {
-        alert(i)
-      }
-    }
-    arr[3]();
-    //典型的闭包啊，看都不用看，肯定弹出5啊
-  </script>
 </body>
+<script>
+  // 日志系统
+  new Reporter()
+</script>
 
 </html>
